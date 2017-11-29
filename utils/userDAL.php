@@ -55,10 +55,10 @@ function editUser($_id, $_fName, $_lName, $_uName, $_password, $_phone, $_email,
     $weight = $_weight;
     $ethnicity = $_ethnicity;
     $last = $_last;
-
+    
     global $con;
     $sql = "UPDATE user 
-            SET User_ID = '$id', First_Name = '$fName', Last_Name = '$lName', User_Phone_Num = '$phone', Email = '$email', Username = '$uName', Password = '$password', Image_Name = '$image', Hair_Color = '$hair', Weight = '$weight', Ethnicity = '$ethnicity', Last_Location = '$last'
+            SET User_ID = '$id', First_Name = '$fName', Last_Name = '$lName', User_Phone_Num = '$phone', Email = '$email', Username = '$uName', `Password` = '$password', Image_Name = '$image', Hair_Color = '$hair', `Weight` = '$weight', Ethnicity = '$ethnicity', Last_Location = '$last'
             WHERE User_ID = '$id'";
     
     if ($con->query($sql) === TRUE) {
@@ -66,8 +66,60 @@ function editUser($_id, $_fName, $_lName, $_uName, $_password, $_phone, $_email,
     } else {
         echo "Error: " . $sql . "<br>" . $con->error;
     }
+
+    $con->close();
+
+}
+
+function addRole1($_userID, $_password){
+    $userID = $_userID;
+    $password =  $_password;
+    $role =  'Member';
+
+    global $con;
+    $sql = "INSERT INTO `role` (`Role_ID`, `Role_User_ID`, `Password`, `Role`)
+                VALUES (null, '$userID', '$password', '$role')";
+    
+    if ($con->query($sql) === TRUE) {
+        echo "New role record created successfully <br>";
+    } else {
+        echo "addRole() Error: " . $sql . "<br>" . $con->error;
+    }
+    
+    $con->close();
+}
+function addRole($_userID, $_password){
+    
+    $userID = $_userID;
+    $password = $_password;
+    $role = 'Member';
+ 
+
+    global $con;
+    $sql = "INSERT INTO `role` (`Role_ID`, `Role_User_ID`, `Password`, `Role`)
+    VALUES (null, `$userID`, `$password`, `$role`)";
+    
+    if ($con->query($sql) === TRUE) {
+        echo "New role record created successfully <br>";
+    } else {
+        echo "Error: " . $sql . "<br>" . $con->error;
+    }
     
     $con->close();
 
 }
+// $userID = 3;
+// function getUserID($_fName, $_lName, $_email){
+//     $fName = $_fName;
+//     $lName = $_lName;
+//     $email = $_email;
+//     global $con;
+//     $userID = mysqli_query($con,"SELECT User_ID 
+//                                     FROM user 
+//                                     WHERE First_Name = '$fName'
+//                                     AND Last_Name = '$lName'
+//                                     AND Email = '$email'");
+                                    
+// }
+// return $userID
 ?>
