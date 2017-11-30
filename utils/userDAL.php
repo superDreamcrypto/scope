@@ -122,4 +122,43 @@ function addRole($_userID, $_password){
                                     
 // }
 // return $userID
+
+function validateUser($_uName, $_password){
+    $uName = $_uName;
+    $password = $_password;
+    global $con;
+    $query = "SELECT * 
+            FROM user
+            WHERE `Username` = '$uName'
+            AND `Password` = '$password'";
+    // $prepared = mysqli_stmt_prepare($con, $stmt);
+    // $query = mysqli_stmt_execute($stmt);
+    if ($stmt = mysqli_prepare($con, $query))
+    {
+        // echo "User was validated successfully <br>";
+        
+        // mysqli_stmt_bind_result($stmt, $name, $row);
+        // $rowCount = 0;
+        // while (mysqli_stmt_fetch($stmt)) {
+        //     $rowCount++;
+        // }
+        // if($stmt->rowCount() == 0)
+        // $rowCount = $query->num_rows;
+        // if($rowCount = 1)
+        if(mysqli_stmt_execute($stmt))
+        // if(mysqli_stmt_fetch($stmt))
+        {
+            header('Location: ../pages/userHome.php');
+        }
+        else
+        {	
+            header('Location: ../index.html?err=1');  
+        }
+    }
+    
+    else 
+    {
+    echo "Error: " . $query . "<br>" . $con->error;
+    }
+}
 ?>

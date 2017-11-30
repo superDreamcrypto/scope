@@ -1,25 +1,14 @@
 <?php
-// 	$host = 'localhost';
-// 	$user = 'root';
-// 	$pass = '';
-// $database = 'group_scope';
 
-// $db = new PDO('mysql:host='.$host.';
-// 					dbname='.$database, $user, $pass);
-
-// if(!$db)
-// {
-//    echo "unable to connect to database";
-// }
-
+// $con = new mysqli("localhost","root","","group_scope");
 $con = mysqli_connect("localhost","root","","group_scope");
 
-if(!$con)
+
+if (mysqli_connect_errno()) 
 {
-   echo "unable to connect to database";
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
 }
-// if ($con->connect_errno())
-// {
-// 	echo "Failed to connect to MySql: " . mysqli_connect_error();
-// }
+
+
 ?>

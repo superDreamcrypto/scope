@@ -3,7 +3,7 @@ include '../utils/userDAL.php';
 include '../utils/connection.php';
 
 
-
+// new user
 if(isset($_POST['fname']))
 {
   $fName = $_POST['fname'];
@@ -20,12 +20,25 @@ if(isset($_POST['fname']))
   // $userID = getUserID($fName, $lName, $email);
   // echo $userID . "userHome";
   // addRole($userID, $password);
-  echo $fName.'<br>'.$lName.'<br>'.$uName.'<br>'.$password.'<br>'.$phone.'<br>'.$email;
+}
+
+if(isset($_POST['logInuName']))
+{
+  $uName = $_POST['logInuName'];
+  $password = $_POST['logInPassword'];
+  // validateUser($uName,$password);
 }
 else
 {
-  // echo 'isset = false <br>'. $_POST['fname'];
+  $Message = "Invalid username or password! ";
+  header('Location: ./signin.php?Message='.$Message);
+
+  
 }
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +106,7 @@ else
               </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="logout.php">Log Out</a>
+                <a class="nav-link js-scroll-trigger" href="../utils/logout.php">Log Out</a>
              </li>
             
             
@@ -114,12 +127,12 @@ else
           <!-- </div> -->
           <header class="masthead">
               <div class="container h-100">
-                <div class="row h-100">
-                  <div class="col-md-8 my-auto">
+                <div class="">
+                  <div class="col-md-8 mx-auto">
                     <div class="header-content mx-auto">
                       <div class="container row col-md-12">
 
-                        <div class="col-xs-6 btn-group-sm">
+                        <div class="col-xs-6 btn-group-sm mx-auto">
                           <div class="dropdown">
                             <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="membersButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Members
@@ -151,24 +164,29 @@ else
                       </div>
                       <!-- start map -->
                       
-                      <div class="align-content-center">
-                        <h3>John Johnson</h3>
+                      <div class="align-content-center mx-auto">
+                        <h3 class="text-center">John Johnson</h3>
                         <div id="map"></div>
                       </div>
                       <div style="height:25px;">
                         <!-- spacer -->
                       </div>
                       <div >
-                        <h4>Location info</h4>
+                        <h4 class="text-center">Location info</h4>
                       </div>
                       <div style="height:25px;">
                         <!-- spacer -->
                       </div>
-                      <a href="../utils/requestLocation.php" class="btn btn-outline btn-xl js-scroll-trigger">Request Location</a>
-                      <div style="height:10px;">
+                      <div class="mx-auto text-center ">
+                        <a href="../utils/requestLocation.php" class="btn btn-outline justify-content-center btn-xl js-scroll-trigger">Request Location</a>
+                        <div style="height:10px;">
+                          <!-- spacer -->
+                        </div>  
+                        <a href="../utils/sendLocation.php" class="btn btn-outline btn-xl js-scroll-trigger">Send Location</a>
+                      </div>
+                      <div style="height:25px;">
                         <!-- spacer -->
-                      </div>  
-                      <a href="../utils/sendLocation.php" class="btn btn-outline btn-xl js-scroll-trigger">Send Location</a>
+                      </div>
                     </div>
                   </div>
 
@@ -177,23 +195,23 @@ else
 
     
 
-    <footer>
-        <div class="container"style="margin: auto;">
-          <p>&copy; Group Scope 2017. By: Chad Lofgren
-                <br> All Rights Reserved.</p>
-          <ul class="list-inline">
-            <li class="list-inline-item">
-              <a href="#">Privacy</a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">Terms</a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">FAQ</a>
-            </li>
-          </ul>
-        </div>
-      </footer>
+                  <footer>
+                  <div class="container"style="margin: auto;">
+                    <p>&copy; Group Scope 2017. By: Chad Lofgren
+                          <br> All Rights Reserved.</p>
+                    <ul class="list-inline">
+                      <li class="list-inline-item">
+                        <a href="#">Privacy</a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="#">Terms</a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="#">FAQ</a>
+                      </li>
+                    </ul>
+                  </div>
+                </footer>
 
     <!-- Bootstrap core JavaScript -->
     <script src="../vendor/jquery/jquery.min.js"></script>
