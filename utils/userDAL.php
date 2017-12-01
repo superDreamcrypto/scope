@@ -108,51 +108,45 @@ function addRole($_userID, $_password){
     $con->close();
 
 }
-// $userID = 3;
-// function getUserID($_fName, $_lName, $_email){
-//     $fName = $_fName;
-//     $lName = $_lName;
-//     $email = $_email;
-//     global $con;
-//     $userID = mysqli_query($con,"SELECT User_ID 
-//                                     FROM user 
-//                                     WHERE First_Name = '$fName'
-//                                     AND Last_Name = '$lName'
-//                                     AND Email = '$email'");
-                                    
-// }
-// return $userID
+$userID = 0;
+function getUserID($_fName, $_lName, $_email){
+    $fName = $_fName;
+    $lName = $_lName;
+    $email = $_email;
+    global $con;
+    $query = "SELECT *
+                FROM user 
+                WHERE `First_Name` = '$fName'
+                AND `Last_Name` = '$lName'
+                AND `Email` = '$email'";
+    if($result = mysqli_query($con, $query))
+    {
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
+    $userID = $row['User_ID'];
+    return $userID ;  
+    }                          
+}
+
 
 function validateUser($_uName, $_password){
     $uName = $_uName;
     $password = $_password;
     global $con;
     $query = "SELECT * 
-            FROM user
-            WHERE `Username` = '$uName'
-            AND `Password` = '$password'";
-    // $prepared = mysqli_stmt_prepare($con, $stmt);
-    // $query = mysqli_stmt_execute($stmt);
-    if ($stmt = mysqli_prepare($con, $query))
+                FROM user
+                WHERE `Username` = '$uName'
+                AND `Password` = '$password'";
+    
+    if ($result = mysqli_query($con, $query))
     {
-        // echo "User was validated successfully <br>";
-        
-        // mysqli_stmt_bind_result($stmt, $name, $row);
-        // $rowCount = 0;
-        // while (mysqli_stmt_fetch($stmt)) {
-        //     $rowCount++;
-        // }
-        // if($stmt->rowCount() == 0)
-        // $rowCount = $query->num_rows;
-        // if($rowCount = 1)
-        if(mysqli_stmt_execute($stmt))
-        // if(mysqli_stmt_fetch($stmt))
+        if( mysqli_num_rows($result) != 0)
         {
-            header('Location: ../pages/userHome.php');
+            // exit('you have seccefully signed in!');
         }
         else
         {	
-            header('Location: ../index.html?err=1');  
+            $Message = "Invalid username or password! ";
+            header('Location: ./signIn.php?Message='.$Message);
         }
     }
     

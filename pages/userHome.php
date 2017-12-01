@@ -16,25 +16,25 @@ if(isset($_POST['fname']))
   
    
   addUser($fName, $lName, $uName, $password, $phone, $email);
-
+  $_SESSION['id'] = getUserID($fName,$lName,$email);
   // $userID = getUserID($fName, $lName, $email);
   // echo $userID . "userHome";
   // addRole($userID, $password);
+  echo $_SESSION['id'];
+  
 }
-
-if(isset($_POST['logInuName']))
+//sign in
+elseif(isset($_POST['logInuName']))
 {
   $uName = $_POST['logInuName'];
   $password = $_POST['logInPassword'];
-  // validateUser($uName,$password);
+  validateUser($uName,$password);
 }
-else
-{
-  $Message = "Invalid username or password! ";
-  header('Location: ./signin.php?Message='.$Message);
-
-  
-}
+// else
+// {
+//   $Message = "Invalid username or password! ";
+//   header('Location: ./signIn.php?Message='.$Message);
+// }
 
 
 
