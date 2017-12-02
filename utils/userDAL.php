@@ -42,12 +42,13 @@ function deleteUser(){
 
 
 
-function editUser($_id, $_fName, $_lName, $_uName, $_password, $_phone, $_email, $_image, $_hair, $_weight, $_ethnicity, $_last ){
+function editUser($_id, $_fName, $_lName, $_uName, $_password, $_role, $_phone, $_email, $_image, $_hair, $_weight, $_ethnicity, $_last ){
     $id = $_id;
     $fName = $_fName;
     $lName = $_lName;
     $uName = $_uName;
     $password = $_password;
+    $role = $_role;
     $phone = $_phone;
     $email = $_email;
     $image = $_image;
@@ -58,7 +59,7 @@ function editUser($_id, $_fName, $_lName, $_uName, $_password, $_phone, $_email,
     
     global $con;
     $sql = "UPDATE user 
-            SET User_ID = '$id', First_Name = '$fName', Last_Name = '$lName', User_Phone_Num = '$phone', Email = '$email', Username = '$uName', `Password` = '$password', Image_Name = '$image', Hair_Color = '$hair', `Weight` = '$weight', Ethnicity = '$ethnicity', Last_Location = '$last'
+            SET User_ID = '$id', First_Name = '$fName', Last_Name = '$lName', User_Phone_Num = '$phone', Email = '$email', Username = '$uName', `Password` = '$password', `Role` = '$role', Image_Name = '$image', Hair_Color = '$hair', `Weight` = '$weight', Ethnicity = '$ethnicity', Last_Location = '$last'
             WHERE User_ID = '$id'";
     
     if ($con->query($sql) === TRUE) {
@@ -108,22 +109,34 @@ function addRole($_userID, $_password){
     $con->close();
 
 }
+
 $userID = 0;
-function getUserID($_fName, $_lName, $_email){
-    $fName = $_fName;
-    $lName = $_lName;
-    $email = $_email;
+function getUser($_uName, $_password){
+    $uName = $_uName;
+    $password = $_password;
     global $con;
     $query = "SELECT *
                 FROM user 
-                WHERE `First_Name` = '$fName'
-                AND `Last_Name` = '$lName'
-                AND `Email` = '$email'";
-    if($result = mysqli_query($con, $query))
+                WHERE `Username` = '$uName' 
+                AND `Password` = '$password'";
+
+    if ($result = mysqli_query($con, $query))
     {
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
-    $userID = $row['User_ID'];
-    return $userID ;  
+    
+    $_SESSION['id'] = $row['User_ID'];
+    $_SESSION['fName'] = $row['First_Name'];
+    $_SESSION['lName'] = $row['Last_Name'];
+    $_SESSION['uName'] = $row['Username'];
+    $_SESSION['phone'] = $row['User_Phone_Num'];
+    $_SESSION['email'] = $row['Email'];
+    $_SESSION['password'] = $row['Password'];
+    $_SESSION['role'] = $row['Role'];
+    $_SESSION['imageName'] = $row['Image_Name'];
+    $_SESSION['hair'] = $row['Hair_Color'];
+    $_SESSION['weight'] = $row['Weight'];
+    $_SESSION['ethnicity'] = $row['Ethnicity'];
+    $_SESSION['lastLocation'] = $row['Last_Location'];
     }                          
 }
 
