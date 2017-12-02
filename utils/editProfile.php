@@ -21,7 +21,7 @@ $last = $_SESSION['lastLocation'];
 
 editUser($id, $fName, $lName, $uName, $password, $role, $phone, $email, $imageName, $hair, $weight, $ethnicity, $last);
 
-$Message = "Ypur profile has been updated! ";
+$Message = "Your profile has been updated! ";
 header('Location: ../pages/userHome.php?Message='.$Message)
 
 ?>

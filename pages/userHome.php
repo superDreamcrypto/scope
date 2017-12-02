@@ -32,7 +32,7 @@ elseif(isset($_POST['logInuName']))
   $password = $_POST['logInPassword'];
   validateUser($uName,$password);
   getUser($uName, $password);
-  echo 'session ID from signIn ='.$_SESSION['id'];
+  echo 'session ID from signIn ='.$_SESSION['userID'];
   echo '<br> session  from singIn='.$_SESSION['fName'];
   echo '<br>session  from singIn='.$_SESSION['lName'];
   echo '<br>session  from singIn='.$_SESSION['uName'];

@@ -124,7 +124,7 @@ function getUser($_uName, $_password){
     {
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
     
-    $_SESSION['id'] = $row['User_ID'];
+    $_SESSION['userID'] = $row['User_ID'];
     $_SESSION['fName'] = $row['First_Name'];
     $_SESSION['lName'] = $row['Last_Name'];
     $_SESSION['uName'] = $row['Username'];
