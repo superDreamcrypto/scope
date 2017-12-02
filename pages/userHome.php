@@ -1,7 +1,7 @@
 <?php
 include '../utils/userDAL.php';
 include '../utils/connection.php';
-
+session_start();
 
 // new user
 if(isset($_POST['fname']))
@@ -16,11 +16,13 @@ if(isset($_POST['fname']))
   
    
   addUser($fName, $lName, $uName, $password, $phone, $email);
-  $_SESSION['id'] = getUserID($fName,$lName,$email);
+  getUser($uName, $password);
   // $userID = getUserID($fName, $lName, $email);
   // echo $userID . "userHome";
   // addRole($userID, $password);
-  echo $_SESSION['id'];
+  echo 'session ID from singUp='.$_SESSION['id'];
+  
+  
   
 }
 //sign in
@@ -29,12 +31,27 @@ elseif(isset($_POST['logInuName']))
   $uName = $_POST['logInuName'];
   $password = $_POST['logInPassword'];
   validateUser($uName,$password);
+  getUser($uName, $password);
+  echo 'session ID from signIn ='.$_SESSION['id'];
+  echo '<br> session  from singIn='.$_SESSION['fName'];
+  echo '<br>session  from singIn='.$_SESSION['lName'];
+  echo '<br>session  from singIn='.$_SESSION['uName'];
 }
 // else
 // {
 //   $Message = "Invalid username or password! ";
 //   header('Location: ./signIn.php?Message='.$Message);
 // }
+
+if(isset($_GET['Message']))
+{
+  // session_start();
+  $uName = $_SESSION['uName'];
+  $password = $_SESSION['password'];
+  $message = $_GET['Message'];
+  echo "<script type='text/javascript'>alert('$message');</script>";
+  getUser($uName, $password);
+}
 
 
 
