@@ -82,9 +82,10 @@
           </div>
           <div class="container">
             <div class="cols-sm-6 cols-sm-offset-3 text-center">
-            <h1 class=""><b>Sign Up</b></h1>
+              <h1 class=""><b>Create A Group</b></h1>
             </div>
           </div>
+
             <!-- boostrap form start-->
             <div class="container ">
               <div class="row main">
@@ -93,93 +94,36 @@
                   <div style="height:20px;">
                     <!-- spacer -->
                   </div>
-                  <form class="" method="post" action="./userHome.php">
-                    
-                    <div class="form-group">
-                      <label for="name" class="cols-sm-2 control-label">First Name</label>
-                      <div class="cols-sm-10">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                          <input type="text" class="form-control" name="fname" id="fname"  placeholder="Enter your First Name" required autofocus/>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label for="name" class="cols-sm-2 control-label">Last Name</label>
-                      <div class="cols-sm-10">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                          <input type="text" class="form-control" name="lname" id="lname"  placeholder="Enter your Last Name" required autofocus/>
-                        </div>
-                      </div>
-                    </div>
+                  
+                  <form class="" method="post" action="../utils/createGroupUtil.php">
 
                     <div class="form-group">
-                      <label for="email" class="cols-sm-2 control-label">Email</label>
-                      <div class="cols-sm-10">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                          <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" required autofocus />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="uName" class="cols-sm-2 control-label">Username</label>
+                      <label for="groupName" class="cols-sm-2 control-label">Group Name</label>
                       <div class="cols-sm-10">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                          <input type="text" class="form-control" name="uName" id="uName"  placeholder="Enter your Username" required autofocus/>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label for="username" class="cols-sm-2 control-label">Phone Number</label>
-                      <div class="cols-sm-10">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
-                          <input type="text" class="form-control" name="phone" id="phone"  placeholder="Enter your Phone Number"required autofocus/>
+                          <input type="text" class="form-control" name="groupName" id="groupName"  placeholder="Enter a goup name" required autofocus/>
                         </div>
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="password" class="cols-sm-2 control-label">Password</label>
                       <div class="cols-sm-10">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                          <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" required autofocus/>
+                          <input type="password" class="form-control" name="logInPassword" id="password"  placeholder="Enter your Password" required autofocus/>
                         </div>
                       </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-                      <div class="cols-sm-10">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                          <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password" required autofocus/>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- <div class="form-group ">
-                      <a href="./userHome.php" target="_blank" type="submit" id="button" class="btn btn-primary btn-lg btn-block login-button">Sign Up</a>
                     </div> -->
+
                     <div class="form-group"> 
-                      <div class="col-sm-offset-2 col-sm-10">
+                      <div class=" col-sm-12">
                         <!-- <button type="submit" class="btn btn-default">Sign Up</button> -->
-                        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">submit</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Create Group</button>
                       </div>
                     </div>
-                    <div class="form-group"> 
-                      <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                          <label><input type="checkbox"> Remember me</label>
-                        </div>
-                      </div>
+                   
                     </div>
                   </form> 
                 </div>
@@ -196,22 +140,22 @@
     
 
     <footer>
-    <div class="container"style="margin: auto;">
-      <p>&copy; Group Scope 2017. By: Chad Lofgren
-            <br> All Rights Reserved.</p>
-      <ul class="list-inline">
-        <li class="list-inline-item">
-          <a href="#">Privacy</a>
-        </li>
-        <li class="list-inline-item">
-          <a href="#">Terms</a>
-        </li>
-        <li class="list-inline-item">
-          <a href="#">FAQ</a>
-        </li>
-      </ul>
-    </div>
-  </footer>
+      <div class="container"style="margin: auto;">
+        <p>&copy; Group Scope 2017. By: Chad Lofgren
+              <br> All Rights Reserved.</p>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">Privacy</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">Terms</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">FAQ</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
 
     <!-- Bootstrap core JavaScript -->
     <script src="../vendor/jquery/jquery.min.js"></script>

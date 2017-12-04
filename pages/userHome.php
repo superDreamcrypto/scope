@@ -1,7 +1,10 @@
 <?php
 include '../utils/userDAL.php';
 include '../utils/connection.php';
+// session_start();
+// session_destroy();
 session_start();
+
 
 // new user
 if(isset($_POST['fname']))
@@ -17,10 +20,12 @@ if(isset($_POST['fname']))
    
   addUser($fName, $lName, $uName, $password, $phone, $email);
   getUser($uName, $password);
+  echo "<br>username = ".$uName."<br>password = ".$password;
+  
   // $userID = getUserID($fName, $lName, $email);
   // echo $userID . "userHome";
   // addRole($userID, $password);
-  echo 'session ID from singUp='.$_SESSION['id'];
+  // echo 'session ID from singUp='.$_SESSION['id'];
   
   
   
@@ -115,8 +120,18 @@ if(isset($_GET['Message']))
               <a class="nav-link js-scroll-trigger" href="profile.php">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="addGoup.php">Add Group</a>
+              <a class="nav-link js-scroll-trigger" href="createGroup.php">Add Group</a>
             </li>
+            <?php
+              if($_SESSION['role'] == "Admin")
+              {
+                ?>
+               <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="adminPanel.php">Admin Panel</a>
+                </li>
+              <?php
+              }
+            ?>
             <li>
               <div style="height:10px;">
                   <!-- spacer -->
@@ -142,14 +157,14 @@ if(isset($_GET['Message']))
           <!-- <div style="height:50px;"> -->
                     <!-- spacer -->
           <!-- </div> -->
-          <header class="masthead">
+          <!-- <header class="masthead"> -->
               <div class="container h-100">
-                <div class="">
+                <!-- <div class=""> -->
                   <div class="col-md-8 mx-auto">
                     <div class="header-content mx-auto">
-                      <div class="container row col-md-12">
+                      <div class="container row btn-group-sm col-md-12 mx-auto">
 
-                        <div class="col-xs-6 btn-group-sm mx-auto">
+                        <div class=" btn-group-sm mx-auto"style="width:35%">
                           <div class="dropdown">
                             <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="membersButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Members
@@ -162,7 +177,7 @@ if(isset($_GET['Message']))
                           </div>
                         </div>
                         &emsp;
-                        <div class="col-xs-6 btn-group-sm">
+                        <div class=" btn-group-sm mx-auto"style="width:35%">
                           <div class="dropdown">
                             <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="grouprsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Groups
@@ -229,6 +244,12 @@ if(isset($_GET['Message']))
                     </ul>
                   </div>
                 </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
 
     <!-- Bootstrap core JavaScript -->
     <script src="../vendor/jquery/jquery.min.js"></script>

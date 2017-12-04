@@ -60,7 +60,7 @@ echo '<br>session uname ='.$_SESSION['uName'];
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="addGoup.php">Add Group</a>
+          <a class="nav-link js-scroll-trigger" href="createGroup.php">Add Group</a>
         </li>
         <li>
           <div style="height:10px;">
