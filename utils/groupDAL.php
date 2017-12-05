@@ -58,4 +58,31 @@ function editGroup($_Group_id,$_Group_Name){
     $con->close();
 
 }
+
+function getGroupByID($_id){
+    $id = $_id; 
+    global $con;
+    $query = "SELECT * 
+                FROM `group`
+                WHERE `Group_ID` = $id";
+    
+    if ($result = mysqli_query($con, $query))
+    {
+        
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
+    
+    $groupID = $row['Group_ID'];
+    $groupName = $row['Group_Name'];
+  
+
+        $groupArray = array(
+            $groupID,$groupName
+        );
+    return $groupArray;
+    } 
+    else 
+    {
+        echo "Error: " . $query . "<br>" . $con->error;
+    }                         
+}
 ?>

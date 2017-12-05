@@ -60,4 +60,33 @@ function editDevice($_Device_id, $_Device_User_ID, $_Device_Phone_Num, $_Device_
     $con->close();
 
 }
+
+function getDeviceByID($_id){
+    $id = $_id; 
+    global $con;
+    $query = "SELECT * 
+                FROM `device`
+                WHERE `Device_ID` = $id";
+    
+    if ($result = mysqli_query($con, $query))
+    {
+        
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
+    
+    $deviceID = $row['Device_ID'];
+    $deviceUserID = $row['Device_User_ID'];
+    $phone = $row['Device_Phone_Num'];
+    $name = $row['Device_Name'];
+  
+
+        $deviceArray = array(
+            $deviceID,$deviceUserID,$phone,$name
+        );
+    return $deviceArray;
+    } 
+    else 
+    {
+        echo "Error: " . $query . "<br>" . $con->error;
+    }                         
+}
 ?>

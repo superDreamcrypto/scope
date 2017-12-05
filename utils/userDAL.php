@@ -27,9 +27,9 @@ function addUser($_fName, $_lName, $_uName, $_password, $_phone, $_email ){
 
 
 
-function deleteUser(){
+function deleteUser($_id){
     global $con;
-    $id = 3;
+    $id = $_id;
     // $id = $_GET['id'];
     // $query = mysqli_query($con,"SELECT * FROM user WHERE User_ID = '$id'");
     // $imageFile = mysqli_fetch_assoc($query);
@@ -110,16 +110,16 @@ function addRole($_userID, $_password){
 
 }
 
-$userID = 0;
+
 function getUser($_uName, $_password){
     $uName = $_uName;
     $password = $_password;
     global $con;
-    $query = "SELECT *
-                FROM user 
-                WHERE `Username` = '$uName' 
+    $query = "SELECT * 
+                FROM user
+                WHERE `Username` = '$uName'
                 AND `Password` = '$password'";
-
+    
     if ($result = mysqli_query($con, $query))
     {
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
@@ -137,7 +137,50 @@ function getUser($_uName, $_password){
     $_SESSION['weight'] = $row['Weight'];
     $_SESSION['ethnicity'] = $row['Ethnicity'];
     $_SESSION['lastLocation'] = $row['Last_Location'];
-    }                          
+//     $_SESSION['ThisSesssion']['Data'];
+// unset($_SESSION['ThisSession']);    
+    }
+    else 
+    {
+        echo "Error: " . $query . "<br>" . $con->error;
+    }                         
+}
+function getUserByID($_id){
+    $id = $_id; 
+    global $con;
+    $query = "SELECT * 
+                FROM user
+                WHERE `User_ID` = $id";
+    
+    if ($result = mysqli_query($con, $query))
+    {
+        
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
+    
+    $userID = $row['User_ID'];
+    $fName = $row['First_Name'];
+    $lName = $row['Last_Name'];
+    $uName = $row['Username'];
+    $phone = $row['User_Phone_Num'];
+    $email = $row['Email'];
+    $password = $row['Password'];
+    $role = $row['Role'];
+    $imageName = $row['Image_Name'];
+    $hair = $row['Hair_Color'];
+    $weight = $row['Weight'];
+    $ethnicity = $row['Ethnicity'];
+    $last= $row['Last_Location'];
+
+        $userArray = array(
+            $id,$fName,$lName,$uName,$phone,$email,$password
+            ,$role,$imageName,$hair,$weight,$ethnicity,$last
+        );
+    return $userArray;
+    } 
+    else 
+    {
+        echo "Error: " . $query . "<br>" . $con->error;
+    }                         
 }
 
 
