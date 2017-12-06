@@ -20,6 +20,17 @@
      font-size: 2em;
      font-family: 'FontAwesome';
  }
+
+ h3{
+    color:#fbfdff;
+    font-size: 1.5em;
+    font-family: 'FontAwesome';
+}
+p{
+    color:#fe1a09;
+    /* font-size: 1.5em; */
+    font-family: 'FontAwesome';
+}
  
  footer{
      padding: 8px;
@@ -49,6 +60,11 @@ header.masthead {
     color:#fe1a09;
     font-size: 1.75em;
     font-family: 'FontAwesome';
+    
+}
+#mainNav .navbar-nav>li>a, #mainNav .navbar-nav>li>a:focus
+{
+    color:#fe1a09;
 }
 #map {
     height: 300px;

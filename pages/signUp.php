@@ -57,13 +57,13 @@
               <a class="nav-link js-scroll-trigger" href="SingUp.php">Sign Up</a>
             </li> -->
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="../index.html/#features">Features</a>
+              <a class="nav-link js-scroll-trigger" href="../index.html#features">Features</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="../index.html/#aboutUs">AoutUs</a>
+              <a class="nav-link js-scroll-trigger" href="../index.html#aboutUs">About Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="../index.html/#contact">Contact</a>
+              <a class="nav-link js-scroll-trigger" href="../index.html#contact">Contact Us</a>
             </li>
           </ul>
         </div>

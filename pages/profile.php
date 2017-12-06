@@ -1,10 +1,8 @@
 <?php
 session_start();
-$id = $_SESSION['id'];
-echo 'session ID  ='.$id;
-echo '<br>session fname ='.$_SESSION['fName'];
-echo '<br>session lname ='.$_SESSION['lName'];
-echo '<br>session uname ='.$_SESSION['uName'];
+// $id = $_SESSION['userID'];
+echo $_SESSION['userID'];
+
 ?>
 
 <!DOCTYPE html>
