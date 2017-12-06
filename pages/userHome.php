@@ -1,5 +1,7 @@
 <?php
 include '../utils/userDAL.php';
+include '../utils/groupDAL.php';
+include '../utils/groupUserDAL.php';
 include '../utils/connection.php';
 // session_start();
 // session_destroy();
@@ -16,16 +18,16 @@ if(isset($_POST['fname']))
   $confPassword = $_POST['confirm'];
   $phone = $_POST['phone'];
   $email = $_POST['email'];
+  $groupName = $_POST['groupname'];
   
    
   addUser($fName, $lName, $uName, $password, $phone, $email);
-  getUser($uName, $password);
-  echo "<br>username = ".$uName."<br>password = ".$password;
-  
-  // $userID = getUserID($fName, $lName, $email);
-  // echo $userID . "userHome";
-  // addRole($userID, $password);
-  // echo 'session ID from singUp='.$_SESSION['id'];
+  addUserToSession($uName, $password);
+  $userID = $_SESSION['userID'];
+  addGroup($groupName);
+  $groupID = getGroupByName($groupName);
+  addGroupUser($userID, $groupID);
+
   
   
   
@@ -36,11 +38,8 @@ elseif(isset($_POST['logInuName']))
   $uName = $_POST['logInuName'];
   $password = $_POST['logInPassword'];
   validateUser($uName,$password);
-  getUser($uName, $password);
-  echo 'session ID from signIn ='.$_SESSION['userID'];
-  echo '<br> session  from singIn='.$_SESSION['fName'];
-  echo '<br>session  from singIn='.$_SESSION['lName'];
-  echo '<br>session  from singIn='.$_SESSION['uName'];
+  addUserToSession($uName, $password);
+  
 }
 // else
 // {

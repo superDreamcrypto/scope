@@ -129,7 +129,7 @@
                       <label for="uName" class="cols-sm-2 control-label">Username</label>
                       <div class="cols-sm-10">
                         <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                          <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                           <input type="text" class="form-control" name="uName" id="uName"  placeholder="Enter your Username" required autofocus/>
                         </div>
                       </div>
@@ -141,6 +141,16 @@
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
                           <input type="text" class="form-control" name="phone" id="phone"  placeholder="Enter your Phone Number"required autofocus/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="username" class="cols-sm-2 control-label">Group Name</label>
+                      <div class="cols-sm-10">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-group fa" aria-hidden="true"></i></span>
+                          <input type="text" class="form-control" name="groupname" id="groupname"  placeholder="Enter your group name"required autofocus/>
                         </div>
                       </div>
                     </div>
