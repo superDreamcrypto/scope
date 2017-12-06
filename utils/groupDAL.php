@@ -3,13 +3,13 @@ require 'connection.php';
 
 function addGroup($_Group_Name) {
     
-   $name = $_Group_Name;
+    $name = $_Group_Name;
     
 
     global $con;
     $sql = "INSERT INTO `group` (Group_ID, Group_Name)
-            VALUES (null,'$name' )";
-    // INSERT INTO `group` (`Group_ID`, `Group_Name`) VALUES (NULL, 'db test');
+                VALUES (null,'$name' )";
+            
     
     if ($con->query($sql) === TRUE) {
         echo "New group record created successfully <br>";
@@ -17,8 +17,8 @@ function addGroup($_Group_Name) {
         echo "Error: " . $sql . "<br>" . $con->error;
     }
     
-    $con->close();
-
+    // mysqli_close($con);
+    unset($con);
 }
 
 
@@ -32,9 +32,11 @@ function deleteGroup(){
     // $imageFile = mysqli_fetch_assoc($query);
     // unlink("img/main/" .$imageFile['name']);
     mysqli_query($con,"DELETE FROM  `group` WHERE Group_ID = '$id'");
-    mysqli_close($con);
+    // mysqli_close($con);
+    unset($con);
     // header("location:suadminhome.php");
     echo "Your selection has been deleted";
+    
 }
 
 
@@ -55,14 +57,15 @@ function editGroup($_Group_id,$_Group_Name){
         echo "Error: " . $sql . "<br>" . $con->error;
     }
     
-    $con->close();
+    // mysqli_close($con);
+    unset($con);
 
 }
 
 function getGroupByID($_id){
     $id = $_id; 
     global $con;
-    $query = "SELECT * 
+    $query = "SELECT Group_Name 
                 FROM `group`
                 WHERE `Group_ID` = $id";
     
@@ -71,18 +74,40 @@ function getGroupByID($_id){
         
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
     
-    $groupID = $row['Group_ID'];
     $groupName = $row['Group_Name'];
   
-
-        $groupArray = array(
-            $groupID,$groupName
-        );
-    return $groupArray;
+       
+    return $groupName;
     } 
     else 
     {
         echo "Error: " . $query . "<br>" . $con->error;
-    }                         
+    }     
+    // mysqli_close($con); 
+    unset($con);                   
+}
+
+function getGroupByName($_name){
+    $name = $_name; 
+    global $con;
+    $query = "SELECT Group_ID 
+                FROM `group`
+                WHERE Group_Name = '$name'";
+    
+    if ($result = mysqli_query($con, $query))
+    {
+        
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
+    
+    $groupID = $row['Group_ID'];
+
+    return $groupID;
+    } 
+    else 
+    {
+        echo "Error: " . $query . "<br>" . $con->error;
+    }  
+    // mysqli_close($con);    
+    unset($con);                   
 }
 ?>

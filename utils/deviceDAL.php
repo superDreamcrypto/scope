@@ -17,7 +17,8 @@ function addDevice($_Device_User_ID, $_Device_Phone_Num, $_Device_Name){
         echo "Error: " . $sql . "<br>" . $con->error;
     }
     
-    $con->close();
+    // mysqli_close($con);
+    unset($con);
 
 }
 
@@ -32,7 +33,8 @@ function deleteDevice(){
     // $imageFile = mysqli_fetch_assoc($query);
     // unlink("img/main/" .$imageFile['name']);
     mysqli_query($con,"DELETE FROM device WHERE Device_ID = '$id'");
-    mysqli_close($con);
+    // mysqli_close($con);
+    unset($con);
     // header("location:suadminhome.php");
     echo "Your selection has been deleted";
 }
@@ -57,7 +59,8 @@ function editDevice($_Device_id, $_Device_User_ID, $_Device_Phone_Num, $_Device_
         echo "Error: " . $sql . "<br>" . $con->error;
     }
     
-    $con->close();
+    // mysqli_close($con);
+    unset($con);
 
 }
 
@@ -87,6 +90,8 @@ function getDeviceByID($_id){
     else 
     {
         echo "Error: " . $query . "<br>" . $con->error;
-    }                         
+    }   
+    // mysqli_close($con);     
+    unset($con);                 
 }
 ?>

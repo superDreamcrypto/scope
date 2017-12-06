@@ -50,11 +50,13 @@ elseif(isset($_POST['logInuName']))
 if(isset($_GET['Message']))
 {
   // session_start();
-  $uName = $_SESSION['uName'];
-  $password = $_SESSION['password'];
+  $id = $_SESSION['userID'];
+  
+  // $uName = $_SESSION['uName'];
+  // $password = $_SESSION['password'];
   $message = $_GET['Message'];
   echo "<script type='text/javascript'>alert('$message');</script>";
-  getUser($uName, $password);
+  // getUserByID($id);
 }
 
 

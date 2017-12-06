@@ -1,6 +1,7 @@
 <?php
 require 'connection.php';
 
+
 function addUser($_fName, $_lName, $_uName, $_password, $_phone, $_email ){
     
     $fName = $_fName;
@@ -20,7 +21,8 @@ function addUser($_fName, $_lName, $_uName, $_password, $_phone, $_email ){
         echo "Error: " . $sql . "<br>" . $con->error;
     }
     
-    $con->close();
+    // mysqli_close($con);
+    unset($con);
 
 }
 
@@ -35,9 +37,11 @@ function deleteUser($_id){
     // $imageFile = mysqli_fetch_assoc($query);
     // unlink("img/main/" .$imageFile['name']);
     mysqli_query($con,"DELETE FROM user WHERE User_ID = '$id'");
-    mysqli_close($con);
+    // mysqli_close($con);
+    unset($con);
     // header("location:suadminhome.php");
     echo "Your selection has been deleted";
+    
 }
 
 
@@ -68,7 +72,8 @@ function editUser($_id, $_fName, $_lName, $_uName, $_password, $_role, $_phone, 
         echo "Error: " . $sql . "<br>" . $con->error;
     }
 
-    $con->close();
+    // mysqli_close($con);
+    unset($con);
 
 }
 
@@ -87,8 +92,10 @@ function addRole1($_userID, $_password){
         echo "addRole() Error: " . $sql . "<br>" . $con->error;
     }
     
-    $con->close();
+    // mysqli_close($con);
+    unset($con);
 }
+
 function addRole($_userID, $_password){
     
     $userID = $_userID;
@@ -106,20 +113,22 @@ function addRole($_userID, $_password){
         echo "Error: " . $sql . "<br>" . $con->error;
     }
     
-    $con->close();
+    // mysqli_close($con);
+    unset($con);
 
 }
 
 
-function getUser($_uName, $_password){
+function addUserToSession($_uName, $_password){
+    session_unset();
     $uName = $_uName;
     $password = $_password;
     global $con;
     $query = "SELECT * 
                 FROM user
-                WHERE `Username` = '$uName'
-                AND `Password` = '$password'";
-    
+                WHERE Username = '$uName'
+                AND Password = '$password'";
+    // if ($result = $con->query($query) === TRUE) 
     if ($result = mysqli_query($con, $query))
     {
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
@@ -143,8 +152,11 @@ function getUser($_uName, $_password){
     else 
     {
         echo "Error: " . $query . "<br>" . $con->error;
-    }                         
+    }    
+//    echo"db closed =". mysqli_close($con);  
+unset($con);                  
 }
+
 function getUserByID($_id){
     $id = $_id; 
     global $con;
@@ -180,7 +192,9 @@ function getUserByID($_id){
     else 
     {
         echo "Error: " . $query . "<br>" . $con->error;
-    }                         
+    }      
+    // mysqli_close($con); 
+    unset($con);                 
 }
 
 
@@ -210,5 +224,7 @@ function validateUser($_uName, $_password){
     {
     echo "Error: " . $query . "<br>" . $con->error;
     }
+    // mysqli_close($con);
+    unset($con);
 }
 ?>
