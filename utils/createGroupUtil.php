@@ -12,6 +12,6 @@ $groupName = $_POST['groupName'];
  addGroupUser($userID, $groupID);
 // $Message = '"'.$groupName.'"'.' has been created! ';
 echo $Message;
-// header('Location: ../pages/userHome.php?Message='.$Message)
+header('Location: ../pages/userHome.php?Message='.$Message)
 
 ?>
