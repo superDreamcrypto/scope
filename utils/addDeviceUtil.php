@@ -7,8 +7,8 @@ $userID = $_SESSION['userID'];
 $devicePhone = $_POST['phone'];
 $deviceName = $_POST['deviceName'];
 
-addDevice($userID, $devicePhone, $deviceName);
-$Message = '"'.$deviceName.'"'.' has been added to your profile! ';
+$Message = addDevice($userID, $devicePhone, $deviceName);
+// $Message = '"'.$deviceName.'"'.' has been added to your profile! ';
 header('Location: ../pages/userHome.php?Message='.$Message)
 
 ?>

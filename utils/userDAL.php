@@ -16,13 +16,14 @@ function addUser($_fName, $_lName, $_uName, $_password, $_phone, $_email ){
     VALUES (null, '$fName', '$lName',  '$phone', '$email','$uName', '$password', null, null, null, null, null)";
     
     if ($con->query($sql) === TRUE) {
-        echo "New user record created successfully <br>";
+        $Mesage = "New user record created successfully <br>";
     } else {
-        echo "Error: " . $sql . "<br>" . $con->error;
+        $Message = "Error: " . $sql . "<br>" . $con->error;
     }
     
     // mysqli_close($con);
     unset($con);
+    return $Mesage;
 
 }
 
@@ -67,13 +68,14 @@ function editUser($_id, $_fName, $_lName, $_uName, $_password, $_role, $_phone, 
             WHERE User_ID = '$id'";
     
     if ($con->query($sql) === TRUE) {
-        echo "New record created successfully";
+        $Message = "Your profile has been updated!";
     } else {
-        echo "Error: " . $sql . "<br>" . $con->error;
+        $Message = "Error: " . $sql . "<br>" . $con->error;
     }
 
     // mysqli_close($con);
     unset($con);
+    return $Message;
 
 }
 

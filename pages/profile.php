@@ -2,6 +2,7 @@
 session_start();
 // $id = $_SESSION['userID'];
 echo $_SESSION['userID'];
+echo $_SESSION['role'];
 
 ?>
 

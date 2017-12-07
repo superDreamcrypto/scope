@@ -50,7 +50,7 @@ elseif(isset($_POST['logInuName']))
 if(isset($_GET['Message']))
 {
   // session_start();
-  $id = $_SESSION['userID'];
+  // $id = $_SESSION['userID'];
   
   // $uName = $_SESSION['uName'];
   // $password = $_SESSION['password'];

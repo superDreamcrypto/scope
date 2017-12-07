@@ -4,21 +4,53 @@ require 'connection.php';
 function addGroup($_Group_Name) {
     
     $name = $_Group_Name;
-    
-
+    echo $name.'<br>';
     global $con;
-    $sql = "INSERT INTO `group` (Group_ID, Group_Name)
-                VALUES (null,'$name' )";
+
+    $sql = "SELECT *
+                FROM `group` 
+                WHERE `Group_Name` = '$name'";
+
+if ($result = mysqli_query($con, $sql))
+{
+    if( mysqli_num_rows($result) != 0)
+    // ^still needs work p- if == 0 it throws a warning an create a new group
+    {
+        $Message = 'You have been added to the "'.$name.'" group!';
+        return $Message ;
             
-    
-    if ($con->query($sql) === TRUE) {
-        echo "New group record created successfully <br>";
-    } else {
-        echo "Error: " . $sql . "<br>" . $con->error;
     }
+    else
+    {
+        $sql2 = "INSERT INTO `group` (Group_ID, Group_Name)
+        VALUES (null,'$name' )";
+
+        if ($con->query($sql2) === TRUE) 
+        {
+        $Message = 'The "'.$name.'" group'.' has been created! ';    
+        return $Message ;
+        }
+        else
+        {
+
+        $Message =  "1 Error: " . $sql . "<br>" . $con->error;
+        return $Message ;
+        }
+        
+    }
+}
+else
+{
+    $Message =  "2 Error: " . $sql . "<br>" . $con->error;
+    return $Message ;
+}
+
+   
+        
     
     // mysqli_close($con);
     unset($con);
+    return $Message ;
 }
 
 

@@ -19,9 +19,9 @@ $weight = $_POST['weight'];
 $ethnicity = $_POST['ethnicity'];
 $last = $_SESSION['lastLocation'];
 
-editUser($id, $fName, $lName, $uName, $password, $role, $phone, $email, $imageName, $hair, $weight, $ethnicity, $last);
-
-$Message = "Your profile has been updated! ";
+$Message = editUser($id, $fName, $lName, $uName, $password, $role, $phone, $email, $imageName, $hair, $weight, $ethnicity, $last);
+// add new values to session array
+// $Message = "Your profile has been updated! ";
 header('Location: ../pages/userHome.php?Message='.$Message)
 
 ?>

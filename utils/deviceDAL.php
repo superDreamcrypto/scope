@@ -12,13 +12,14 @@ function addDevice($_Device_User_ID, $_Device_Phone_Num, $_Device_Name){
             VALUES (null, '$user_id', '$phone', '$name' )";
     
     if ($con->query($sql) === TRUE) {
-        echo "New device record created successfully <br>";
+        $Message = '"'.$name.'"'.' has been added to your profile! ';
     } else {
-        echo "Error: " . $sql . "<br>" . $con->error;
+        $Message = "Error: " . $sql . "<br>" . $con->error;
     }
     
     // mysqli_close($con);
     unset($con);
+    return $Message ;
 
 }
 
