@@ -81,7 +81,7 @@ if(isset($_GET['Message']))
     <!-- <header class="masthead"> -->
 
     
-    <div class="container h-1500">
+    <div class="container h-1500"style="height:600px">
       <div class="row h-100">
         <div class="col-sm-8 mx-auto">
           <div class="col-md-10 mx-auto">

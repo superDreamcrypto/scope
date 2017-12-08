@@ -1,8 +1,6 @@
 <?php
 session_start();
-// $id = $_SESSION['userID'];
-echo $_SESSION['userID'];
-echo $_SESSION['role'];
+
 
 ?>
 
@@ -59,6 +57,9 @@ echo $_SESSION['role'];
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
           <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href="userHome.php">Home</a>
+      </li>
+          <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="createGroup.php">Add Group</a>
         </li>
         <li>
@@ -81,7 +82,7 @@ echo $_SESSION['role'];
       <div class="row h-100">
         <div class="col-sm-8 mx-auto">
           <div class="col-md-10 mx-auto">
-          <div style="height:10px;">
+          <div style="height:80px;">
                     <!-- spacer -->
           </div>
           <div class="container">
@@ -91,12 +92,12 @@ echo $_SESSION['role'];
           </div>
           <div style="height:10px;">
                     <!-- spacer -->
-                  </div>
+          </div>
             <!-- boostrap form start-->
             <div class="container ">
               <div class="row main">
                 <!-- <div class="main-login main-center"> -->
-                <div class="main-center" >
+                <div class="main-center container" >
                   
                   <form class="" method="post" action="../utils/editProfile.php">
                     
@@ -195,41 +196,17 @@ echo $_SESSION['role'];
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="form-group">
-                      <label for="password" class="cols-sm-2 control-label">Last Location</label>
-                      <div class="cols-sm-10">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                          <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" />
-                        </div>
-                      </div>
-                    </div> -->
-
-                    <!-- <div class="form-group">
-                      <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-                      <div class="cols-sm-10">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                          <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password" required autofocus/>
-                        </div>
-                      </div>
-                    </div> -->
                     <div class="form-group"> 
                     <div class="col-sm-offset-2 col-sm-10">
-                      <!-- <button type="submit" class="btn btn-default">Sign Up</button> -->
                       <button type="submit" action="../utils/editProfile.php" class="btn btn-primary btn-lg btn-block login-button">Edit Profile</button>
                     </div>
-                  </div>
-                  <!-- <div class="form-group"> 
-                    
-                  </div> -->
-                  </form> 
-                  <div class="col-sm-offset-2 col-sm-10">
-                      <!-- <button type="submit" class="btn btn-default">Sign Up</button> -->
-                      <a href="addDevice.php">
-                       <button type="button" action="addDevice.php" class="btn btn-primary btn-lg btn-block login-button">Add Device</button>
-                      </a>
                     </div>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <a href="addDevice.php">
+                        <button type="button" action="addDevice.php" style="width:100%" class="btn btn-primary btn-lg btn-block login-button">Add Device</button>
+                        </a>
+                    </div>
+                  </form> 
                 </div>
               </div>
             </div>
@@ -237,9 +214,7 @@ echo $_SESSION['role'];
         </div>
       </div>
     </div>
-  <!-- </div> -->
-<!-- </div> -->
-    <!-- </header> -->
+
 
     
 

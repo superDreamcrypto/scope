@@ -39,45 +39,41 @@
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <div class="container">
-      <a href="../index.html">
-          <img src="../img/groupScopeLogo.png" alt="Group Scope logo"height="50px">
-        </a>
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Group Scope</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <!-- <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="SingIn.php">Sign In</a>
-            </li>
+        <div class="container">
+        <a href="../index.html">
+            <img src="../img/groupScopeLogo.png" alt="Group Scope logo"height="50px">
+          </a>
+          <a class="navbar-brand js-scroll-trigger" href="#page-top">Group Scope</a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="SingUp.php">Sign Up</a>
-            </li> -->
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="../index.html/#features">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="../index.html/#aboutUs">AoutUs</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="../index.html/#contact">Contact</a>
-            </li>
-          </ul>
-        </div>
+            <a class="nav-link js-scroll-trigger" href="userHome.php">Home</a>
+          </li>
+          <li>
+            <div style="height:10px;">
+                <!-- spacer -->
+            </div>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="../utils/logout.php">Log Out</a>
+          </li>
+        </ul>
       </div>
-    </nav>
+    </div>
+  </nav>
 
     <!-- <header class="masthead"> -->
 
     
-    <div class="container h-1500">
+    <div class="container h-1500"style="height:600px">
       <div class="row h-100">
         <div class="col-sm-8 mx-auto">
           <div class="col-md-10 mx-auto">
-          <div style="height:100px;">
+          <div style="height:150px;">
                     <!-- spacer -->
           </div>
           <div class="container">
@@ -85,7 +81,9 @@
               <h1 class=""><b>Create A Group</b></h1>
             </div>
           </div>
-
+          <div style="height:10px;">
+                    <!-- spacer -->
+          </div>
             <!-- boostrap form start-->
             <div class="container ">
               <div class="row main">

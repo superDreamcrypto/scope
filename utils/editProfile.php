@@ -3,7 +3,7 @@ include '../utils/userDAL.php';
 include '../utils/connection.php';
 
 session_start();
-$id = $_SESSION['id'];
+$id = $_SESSION['userID'];
 $fName = $_POST['profname'];
 $lName = $_POST['lname'];
 $uName = $_POST['uName'];

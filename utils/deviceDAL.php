@@ -95,4 +95,5 @@ function getDeviceByID($_id){
     // mysqli_close($con);     
     unset($con);                 
 }
+
 ?>

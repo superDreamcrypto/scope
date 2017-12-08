@@ -2,6 +2,7 @@
 include '../utils/userDAL.php';
 include '../utils/groupDAL.php';
 include '../utils/groupUserDAL.php';
+// include '../tests/locationDAL.js';
 include '../utils/connection.php';
 // session_start();
 // session_destroy();
@@ -27,7 +28,7 @@ if(isset($_POST['fname']))
   addGroup($groupName);
   $groupID = getGroupByName($groupName);
   addGroupUser($userID, $groupID);
-
+  
   
   
   
@@ -35,11 +36,12 @@ if(isset($_POST['fname']))
 //sign in
 elseif(isset($_POST['logInuName']))
 {
+  
   $uName = $_POST['logInuName'];
   $password = $_POST['logInPassword'];
   validateUser($uName,$password);
   addUserToSession($uName, $password);
-  
+  $userID = $_SESSION['userID'];
 }
 // else
 // {
@@ -59,8 +61,12 @@ if(isset($_GET['Message']))
   // getUserByID($id);
 }
 
-
-
+if (isset($_GET['lat']))
+{
+  $lat = $_GET['lat'];
+  $long = $_GET['long'];
+  
+}
 
 ?>
 
@@ -98,6 +104,54 @@ if(isset($_GET['Message']))
     <!-- Custom styles for this template -->
     <link href="../css/new-age.min.css" rel="stylesheet">
 
+    <!-- button ajax and css -->
+    <!-- <link rel="stylesheet" type="text/css" href="../css/select_style.css"> -->
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript">
+    function fetch_select(val)
+    {
+    $.ajax({
+    type: 'post',
+    url: '../utils/fetch_data.php',
+    data: {
+      get_option:val
+    },
+    success: function (response) {
+      document.getElementById("new_select").innerHTML=response; 
+    }
+    });
+    }
+
+    </script>
+
+    <!-- location script -->
+    <!-- <script type="text/javascript" src="../tests/locationDAL.js">
+    </script> -->
+<style>
+  .btn-userhome{
+    /* select{ */
+    height:35px;
+    border:1px solid #BDBDBD;
+    margin-top:20px;
+    font-size:1.5em;
+    font-family: 'FontAwesome';
+    color:#fff;
+    border-radius:20px;
+    background-color: rgba(255,255,255,0);  
+    border-color:#fff;
+    }
+    .btn-drop-userhome{
+    background-color: rgba(255, 255, 255, 0.534);;  
+    border-color:#fff;'='
+    /* color:rgb(73, 72, 72); */
+    color:black;
+    }
+    .btn-drop-userhome:hover{
+    background-color:black;  
+    border-color:#fff;
+    color:rgb(73, 72, 72);
+    }
+</style>
   </head>
 
 
@@ -148,108 +202,143 @@ if(isset($_GET['Message']))
       </div>
     </nav>
 
-    <!-- <header class="masthead"> -->
+   
 
     
     <div class="container h-1300">
       <div class="row h-100">
         <div class="col-md-8 mx-auto">
           <div class="col-md-10 mx-auto">
-          <!-- <div style="height:50px;"> -->
+          <div style="height:80px;"> 
                     <!-- spacer -->
-          <!-- </div> -->
-          <!-- <header class="masthead"> -->
-              <div class="container h-100">
+          </div>
+          <div class="container h-100">
+            <!-- <div class=""> -->
+              <div class="col-md-8 mx-auto">
                 <!-- <div class=""> -->
-                  <div class="col-md-8 mx-auto">
-                    <div class="header-content mx-auto">
-                      <div class="container row btn-group-sm col-md-12 mx-auto">
+<!-- start button group -->
+                    <div class=" row  ">
+                      <div class=" mx-auto">
+                        <div id="select_box" class="dropdown">
+                          <select class="btn-userhome"  onchange="fetch_select(this.value);">
+                            <option class="btn-drop-userhome">Group</option>
+                              <?php
+                              $host = 'localhost';
+                              $user = 'root';
+                              $pass = '';
+                              mysql_connect($host, $user, $pass);
+                              mysql_select_db('group_scope');
 
-                        <div class=" btn-group-sm mx-auto"style="width:35%">
-                          <div class="dropdown">
-                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="membersButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Members
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="membersButton">
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <a class="dropdown-item" href="#">Member</a>
-                            </div>
+                              $group=mysql_query("SELECT `Group_Name` 
+                                                    FROM `group`
+                                                      LEFT JOIN `groupuser`
+                                                        ON `group`.`Group_ID` = `groupuser`.`GroupUser_Group_ID` 
+                                                      LEFT JOIN `user`
+                                                        ON `user`.`User_ID` = `groupuser`.`GroupUser_User_ID` 
+                                                      WHERE `groupuser`.`GroupUser_User_ID` = '$userID'
+                                                      ORDER BY `Group_Name` ASC");
+                              
+                                            
+                            while($row=mysql_fetch_array($group))
+                            {
+                                echo "<option class='btn-drop-userhome'>".$row['Group_Name']."</option>";   
+                            }                           
+                          ?>
+                            </select>
                           </div>
                         </div>
                         &emsp;
-                        <div class=" btn-group-sm mx-auto"style="width:35%">
-                          <div class="dropdown">
-                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="grouprsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Groups
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="groupsButton">
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <a class="dropdown-item" href="#">Group</a>
-                            </div>
-                          </div>
+                        <div class=" btn-group-sm mx-auto">
+                          <div class=" dropdown" >
+                            <select class="btn-userhome" id="new_select">
+                              <option class="btn-drop-userhome">Member</option>
+                            </select>
                         </div>
+                      </div>
+                    </div> 
+                <!-- end button group -->
 
-                      </div>
-                      <div style="height:20px;">
-                        <!-- spacer -->
-                      </div>
-                      <!-- start map -->
-                      
-                      <div class="align-content-center mx-auto">
-                        <h3 class="text-center">John Johnson</h3>
-                        <div id="map"></div>
-                      </div>
-                      <div style="height:25px;">
-                        <!-- spacer -->
-                      </div>
-                      <div >
-                        <h4 class="text-center">Location info</h4>
-                      </div>
-                      <div style="height:25px;">
-                        <!-- spacer -->
-                      </div>
-                      <div class="mx-auto text-center ">
-                        <a href="../utils/requestLocation.php" class="btn btn-outline justify-content-center btn-xl js-scroll-trigger">Request Location</a>
-                        <div style="height:10px;">
-                          <!-- spacer -->
-                        </div>  
-                        <a href="../utils/sendLocation.php" class="btn btn-outline btn-xl js-scroll-trigger">Send Location</a>
-                      </div>
-                      <div style="height:25px;">
-                        <!-- spacer -->
-                      </div>
-                    </div>
+                  <div style="height:20px;">
+                    <!-- spacer -->
                   </div>
-
+                  <!-- start map -->
                   
-                  
-
-    
-
-                  <footer>
-                  <div class="container"style="margin: auto;">
-                    <p>&copy; Group Scope 2017. By: Chad Lofgren
-                          <br> All Rights Reserved.</p>
-                    <ul class="list-inline">
-                      <li class="list-inline-item">
-                        <a href="#">Privacy</a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="#">Terms</a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="#">FAQ</a>
-                      </li>
-                    </ul>
+                  <div class="align-content-center mx-auto">
+                    
+                    <div id="map"></div>
                   </div>
-                </footer>
+                  <div style="height:25px;">
+                    <!-- spacer -->
+                  </div>
+                  <div >
+                    <h4 class="text-center">Location info</h4>
+                    <p>Click the button to get your coordinates.</p>
+
+                    <button onclick="getLocation()">Try It</button>
+
+                    <p id="demo"></p>
+
+                    <script>
+                    var x = document.getElementById("demo");
+
+                    function getLocation() {
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(showPosition);
+                        } else { 
+                            x.innerHTML = "Geolocation is not supported by this browser.";
+                        }
+                    }
+
+                    function showPosition(position) {
+                        x.innerHTML = "Latitude: " + position.coords.latitude + 
+                        "<br>Longitude: " + position.coords.longitude;
+                    }
+                    </script>
+                    
+                  </div>
+                  <div style="height:25px;">
+                    <!-- spacer -->
+                  </div>
+                  <div class="mx-auto text-center ">
+                    <a href="../utils/requestLocation.php" class="btn btn-outline justify-content-center btn-xl js-scroll-trigger">Request Location</a>
+                    <div style="height:10px;">
+                      <!-- spacer -->
+                    </div>  
+                    <a href="../utils/sendLocation.php" class="btn btn-outline btn-xl js-scroll-trigger">Send Location</a>
+                  </div>
+                  <div style="height:25px;">
+                    <!-- spacer -->
+                  </div>
+                  
+                </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
+    </div>
+                
+
+  
+
+                <footer>
+                <div class="container"style="margin: auto;">
+                  <p>&copy; Group Scope 2017. By: Chad Lofgren
+                        <br> All Rights Reserved.</p>
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <a href="#">Privacy</a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="#">Terms</a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="#">FAQ</a>
+                    </li>
+                  </ul>
+                </div>
+              </footer>
+            <!-- </div> -->
+     
       <!-- </div> -->
 
     <!-- Bootstrap core JavaScript -->

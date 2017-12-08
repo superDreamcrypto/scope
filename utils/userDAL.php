@@ -68,6 +68,16 @@ function editUser($_id, $_fName, $_lName, $_uName, $_password, $_role, $_phone, 
             WHERE User_ID = '$id'";
     
     if ($con->query($sql) === TRUE) {
+        $_SESSION['fName'] = $fName;
+        $_SESSION['lName'] = $lName;
+        $_SESSION['uName'] = $uName;
+        $_SESSION['phone'] = $phone;
+        $_SESSION['email'] = $email;
+        $_SESSION['password'] = $password;
+        $_SESSION['imageName'] = $image;
+        $_SESSION['hair'] = $hair;
+        $_SESSION['weight'] = $weight;
+        $_SESSION['ethnicity'] = $ethnicity;
         $Message = "Your profile has been updated!";
     } else {
         $Message = "Error: " . $sql . "<br>" . $con->error;

@@ -9,6 +9,9 @@
      background-image: url("../img/cloadsBackground.jpg");
      background-repeat: repeat-y;
  }
+ section{
+     padding: 26px;
+ }
  h1{
     /* color:#007bff; */
     color:#fbfdff;
@@ -66,6 +69,10 @@ header.masthead {
 {
     color:#fe1a09;
 }
+#mainNav .navbar-nav>li>a.active {
+    color: #fe1a09!important;
+    background-color: transparent;
+}
 #map {
     height: 300px;
     width: 100%;
@@ -78,4 +85,11 @@ header.masthead {
     background-color:#009edf;
     border-color:#009edf
    }
+   .btn-lg {
+    padding: .4rem .6rem;
+    font-size: 1em;
+    line-height: 1.5;
+    border-radius: 1.5rem;
+}
+   
    
