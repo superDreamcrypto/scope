@@ -65,13 +65,13 @@ if(isset($_GET['Message']))
               <a class="nav-link js-scroll-trigger" href="SingUp.php">Sign Up</a>
             </li> -->
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="../index.html/#features">Features</a>
+              <a class="nav-link js-scroll-trigger" href="../index.html#features">Features</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="../index.html/#aboutUs">AoutUs</a>
+              <a class="nav-link js-scroll-trigger" href="../index.html#aboutUs">About Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="../index.html/#contact">Contact</a>
+              <a class="nav-link js-scroll-trigger" href="../index.html#contact">Contact Us</a>
             </li>
           </ul>
         </div>
@@ -81,7 +81,7 @@ if(isset($_GET['Message']))
     <!-- <header class="masthead"> -->
 
     
-    <div class="container h-1500">
+    <div class="container h-1500"style="height:600px">
       <div class="row h-100">
         <div class="col-sm-8 mx-auto">
           <div class="col-md-10 mx-auto">

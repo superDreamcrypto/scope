@@ -149,7 +149,8 @@ $message = $_GET['Message'];
                     $hair = $row['Hair_Color'];
                     $weight = $row['Weight'];
                     $ethnicity = $row['Ethnicity'];
-                    $last= $row['Last_Location'];
+                    $lat = $row['Lat'];
+                    $lon = $row['Lon'];
                       
                       ?>
 
