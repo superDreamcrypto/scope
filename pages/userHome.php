@@ -126,22 +126,30 @@ if(isset($_GET['Message']))
             console.log(textStatus + ': ' + errorThrown);
         },
     success: function (response) {
-      console.log(response); 
-      function initMap(response) {
+      console.log(response);
+      if (typeof response == 'string')
+      {
+        console.log('response = a string');
+      }
+        
+    
+      var map;
+      function initMap() {
         // var latLon = !null ? response : {lat: 44.9727845, lng: -93.2923275};
         // var uluru = latLon;
+        // var chadAfrica = {lat: 14.5517891, lng: 13.972887};
         var uluru = response;
         var map = new google.maps.Map(document.getElementById('map'), {
 
           zoom: 12,
-          center: uluru
+          center: uluru,
         });
         var marker = new google.maps.Marker({
           position: uluru,
           map: map
         });
       }
-      initMap(response);
+      initMap();
     }
     });
     }
@@ -395,9 +403,9 @@ if(isset($_GET['Message']))
       }
     </script> -->
     <script>
-    
+    var map;
       function initMap(response) {
-        // var latLon = null ? response : {lat: 44.9727845, lng: -93.2923275};
+        var latLon = null ? response : {lat: 44.9727845, lng: -93.2923275};
         var uluru = latLon;
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
