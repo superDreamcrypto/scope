@@ -4,7 +4,6 @@ require 'connection.php';
 function addGroup($_Group_Name) {
     
     $name = $_Group_Name;
-    echo $name.'<br>';
     global $con;
 
     $sql = "SELECT *

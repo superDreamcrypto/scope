@@ -51,22 +51,11 @@ elseif(isset($_POST['logInuName']))
 
 if(isset($_GET['Message']))
 {
-  // session_start();
-  // $id = $_SESSION['userID'];
-  
-  // $uName = $_SESSION['uName'];
-  // $password = $_SESSION['password'];
   $message = $_GET['Message'];
   echo "<script type='text/javascript'>alert('$message');</script>";
-  // getUserByID($id);
 }
 
-if (isset($_GET['lat']))
-{
-  $lat = $_GET['lat'];
-  $long = $_GET['long'];
-  
-}
+
 
 ?>
 
@@ -108,25 +97,60 @@ if (isset($_GET['lat']))
     <!-- <link rel="stylesheet" type="text/css" href="../css/select_style.css"> -->
     <script type="text/javascript" src="../js/jquery.js"></script>
     <script type="text/javascript">
-    function fetch_select(val)
+    function populateMembers(val)
     {
     $.ajax({
-    type: 'post',
-    url: '../utils/fetch_data.php',
+    type: 'get',
+    url: '../api/populateMembersList.php',
     data: {
-      get_option:val
+      groupName:val
     },
     success: function (response) {
-      document.getElementById("new_select").innerHTML=response; 
+      document.getElementById("member_select").innerHTML=response; 
+      console.log(response); 
     }
     });
     }
 
+    function getUserLocation(val)
+    {
+    $.ajax({
+    type: 'get',
+    // url: '../api/userLocation.php?username=' + val,
+    url: '../api/userLocation.php',
+    dataType: 'json',
+    data: {
+      username:val
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus + ': ' + errorThrown);
+        },
+    success: function (response) {
+      console.log(response); 
+      function initMap(response) {
+        // var latLon = !null ? response : {lat: 44.9727845, lng: -93.2923275};
+        // var uluru = latLon;
+        var uluru = response;
+        var map = new google.maps.Map(document.getElementById('map'), {
+
+          zoom: 12,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+      initMap(response);
+    }
+    });
+    }
+
+    
+
     </script>
 
-    <!-- location script -->
-    <!-- <script type="text/javascript" src="../tests/locationDAL.js">
-    </script> -->
+
 <style>
   .btn-userhome{
     /* select{ */
@@ -135,7 +159,7 @@ if (isset($_GET['lat']))
     margin-top:20px;
     font-size:1.5em;
     font-family: 'FontAwesome';
-    color:#fff;
+    color:#66686b;
     border-radius:20px;
     background-color: rgba(255,255,255,0);  
     border-color:#fff;
@@ -146,11 +170,11 @@ if (isset($_GET['lat']))
     /* color:rgb(73, 72, 72); */
     color:black;
     }
-    .btn-drop-userhome:hover{
+    /* .btn-drop-userhome:hover{
     background-color:black;  
     border-color:#fff;
     color:rgb(73, 72, 72);
-    }
+    } */
 </style>
   </head>
 
@@ -220,8 +244,8 @@ if (isset($_GET['lat']))
                     <div class=" row  ">
                       <div class=" mx-auto">
                         <div id="select_box" class="dropdown">
-                          <select class="btn-userhome"  onchange="fetch_select(this.value);">
-                            <option class="btn-drop-userhome">Group</option>
+                          <select onchange="populateMembers(this.value);" class="btn-userhome"  >
+                            <option  class="btn-drop-userhome">Group</option>
                               <?php
                               $host = 'localhost';
                               $user = 'root';
@@ -250,8 +274,8 @@ if (isset($_GET['lat']))
                         &emsp;
                         <div class=" btn-group-sm mx-auto">
                           <div class=" dropdown" >
-                            <select class="btn-userhome" id="new_select">
-                              <option class="btn-drop-userhome">Member</option>
+                            <select onchange="getUserLocation(this.value);" class="btn-userhome" id="member_select">
+                              <option  class="btn-drop-userhome">Member</option>
                             </select>
                         </div>
                       </div>
@@ -272,15 +296,16 @@ if (isset($_GET['lat']))
                   </div>
                   <div >
                     <h4 class="text-center">Location info</h4>
-                    <p>Click the button to get your coordinates.</p>
+                  
+                   
+                    <!-- <p>Click the button to get your coordinates.</p>
 
-                    <button onclick="getLocation()">Try It</button>
+                    <button onclick="getLocation()">Try It</button> -->
 
                     <p id="demo"></p>
-
                     <script>
+                      
                     var x = document.getElementById("demo");
-
                     function getLocation() {
                         if (navigator.geolocation) {
                             navigator.geolocation.getCurrentPosition(showPosition);
@@ -290,8 +315,9 @@ if (isset($_GET['lat']))
                     }
 
                     function showPosition(position) {
-                        x.innerHTML = "Latitude: " + position.coords.latitude + 
-                        "<br>Longitude: " + position.coords.longitude;
+                        // x.innerHTML = "Latitude: " + position.coords.latitude + 
+                        // "<br>Longitude: " + position.coords.longitude;
+                        $.get("/GroupScope/utils/updateUserLocation.php",{lat : position.coords.latitude, lon : position.coords.longitude})
                     }
                     </script>
                     
@@ -300,11 +326,12 @@ if (isset($_GET['lat']))
                     <!-- spacer -->
                   </div>
                   <div class="mx-auto text-center ">
-                    <a href="../utils/requestLocation.php" class="btn btn-outline justify-content-center btn-xl js-scroll-trigger">Request Location</a>
+                    <a href="../utils/requestLocation.php"  class="btn btn-outline justify-content-center btn-xl js-scroll-trigger">Request Location</a>
                     <div style="height:10px;">
                       <!-- spacer -->
                     </div>  
-                    <a href="../utils/sendLocation.php" class="btn btn-outline btn-xl js-scroll-trigger">Send Location</a>
+                    <a onclick="getLocation()" class="btn btn-outline btn-xl js-scroll-trigger">Send Location</a>
+                    <!-- <a href="../utils/sendLocation.php" onclick="getLocation()" class="btn btn-outline btn-xl js-scroll-trigger">Send Location</a> -->
                   </div>
                   <div style="height:25px;">
                     <!-- spacer -->
@@ -354,9 +381,24 @@ if (isset($_GET['lat']))
     	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) **boostrap form** -->
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- map scripts -->
-    <script>
+    <!-- <script>
       function initMap() {
         var uluru = {lat: 44.9727845, lng: -93.2923275};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script> -->
+    <script>
+    
+      function initMap(response) {
+        // var latLon = null ? response : {lat: 44.9727845, lng: -93.2923275};
+        var uluru = latLon;
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
           center: uluru

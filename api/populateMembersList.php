@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST['get_option']))
+if(isset($_GET['groupName']))
 {
  $host = 'localhost';
  $user = 'root';
@@ -7,17 +7,10 @@ if(isset($_POST['get_option']))
  mysql_connect($host, $user, $pass);
  mysql_select_db('group_scope');
 
- $group = $_POST['get_option'];
-//  echo $group;
-//  $member=mysql_query("SELECT Username 
-//                     FROM user 
-//                     JOIN groupuser
-//                         ON user.User_ID = groupuser.GroupUser_User_ID
-//                     JOIN `group`
-//                         ON grour.Group_ID = groupuser.GroupUser_Group_ID 
-//                     WHERE Group_Name ='$group'");
+ $group = $_GET['groupName'];
+ 
 
- $member=mysql_query("SELECT DISTINCT `Username` 
+ $member=mysql_query("SELECT `Username` 
                         FROM `user`
                             LEFT JOIN `groupuser`
                             ON `user`.`User_ID` = `groupuser`.`GroupUser_User_ID` 
@@ -29,11 +22,13 @@ if(isset($_POST['get_option']))
 
 while($row=mysql_fetch_array($member))
 {
-   echo "<option class='btn-drop-userhome'>".$row['Username']."</option>"; 
+    echo "<option class='btn-drop-userhome'>".$row['Username']."</option>"; 
+    
+//    echo "<option value=\"".$row['username']"\".class='btn-drop-userhome'>".$row['Username']."</option>"; 
+
+//    echo "<option value=\"".$row['username']"\".class='btn-drop-userhome'>".$row['Username']."</option>"; 
+
 }
 exit;
 }
-?>
-</div>
-<?php
 ?>

@@ -17,7 +17,9 @@ $imageName = $userArray[8];
 $hair = $userArray[9];
 $weight = $userArray[10];
 $ethnicity = $userArray[11];
-$last = $userArray[12];
+$lat = $userArray[12];
+$lon = $userArray[13];
+
 
 ?>
 
@@ -232,11 +234,20 @@ $last = $userArray[12];
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="last" class="cols-sm-2 control-label">Last Location</label>
+                      <label for="last" class="cols-sm-2 control-label">Latitude</label>
                       <div class="cols-sm-10">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i></span>
-                          <input type="text" class="form-control" name="last" id="last" readonly  value="<?php echo $last; ?>" />
+                          <input type="text" class="form-control" name="lat" id="lat" readonly  value="<?php echo $lat; ?>" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="last" class="cols-sm-2 control-label">Longitude</label>
+                      <div class="cols-sm-10">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i></span>
+                          <input type="text" class="form-control" name="lon" id="lon" readonly  value="<?php echo $lon; ?>" />
                         </div>
                       </div>
                     </div>
@@ -275,7 +286,7 @@ $last = $userArray[12];
           </div>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   <!-- </div> -->
 <!-- </div> -->
     <!-- </header> -->

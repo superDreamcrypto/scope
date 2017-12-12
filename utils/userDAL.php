@@ -10,21 +10,50 @@ function addUser($_fName, $_lName, $_uName, $_password, $_phone, $_email ){
     $password = $_password;
     $phone = $_phone;
     $email = $_email;
-
     global $con;
-    $sql = "INSERT INTO user (User_ID, First_Name, Last_Name, User_Phone_Num, Email, Username, Password, Image_Name, Hair_Color, Weight, Ethnicity, Last_Location)
-    VALUES (null, '$fName', '$lName',  '$phone', '$email','$uName', '$password', null, null, null, null, null)";
-    
-    if ($con->query($sql) === TRUE) {
-        $Mesage = "New user record created successfully <br>";
-    } else {
-        $Message = "Error: " . $sql . "<br>" . $con->error;
+
+    $sql = "SELECT *
+    FROM `user` 
+    WHERE `Username` = '$uName'";
+
+    if ($result = mysqli_query($con, $sql))
+    {
+        if( mysqli_num_rows($result) == 0)
+        {
+            
+            $sql = "INSERT INTO user (User_ID, First_Name, Last_Name, User_Phone_Num, Email, Username, Password, Image_Name, Hair_Color, Weight, Ethnicity, Lat, Lon)
+            VALUES (null, '$fName', '$lName',  '$phone', '$email','$uName', '$password', null, null, null, null, null, null)";
+            
+            if ($con->query($sql) === TRUE) 
+            {
+                $Message = "New user record created successfully \n";
+                return $Mesage;
+            } else 
+            {
+                $Message = "Error: " . $sql . "\n" . $con->error;
+                return $Message;
+            }
+            
+            // mysqli_close($con);
+            // unset($con);
+            // return $Mesage;
+
+        }
+        else 
+        {
+            $Message = 'The username "'.$uName.'" is alresady taken. \n Please try another!';
+            header('Location: ./signUp.php?Message='.$Message);
+        }
     }
-    
+    else
+    {
+        $Message = "Error: " . $sql . "\n" . $con->error;
+        return $Mesage;
+    }
+
     // mysqli_close($con);
     unset($con);
-    return $Mesage;
-
+    return $Message;
 }
 
 
@@ -47,7 +76,7 @@ function deleteUser($_id){
 
 
 
-function editUser($_id, $_fName, $_lName, $_uName, $_password, $_role, $_phone, $_email, $_image, $_hair, $_weight, $_ethnicity, $_last ){
+function editUser($_id, $_fName, $_lName, $_uName, $_password, $_role, $_phone, $_email, $_image, $_hair, $_weight, $_ethnicity, $_lat, $_lon ){
     $id = $_id;
     $fName = $_fName;
     $lName = $_lName;
@@ -60,7 +89,8 @@ function editUser($_id, $_fName, $_lName, $_uName, $_password, $_role, $_phone, 
     $hair = $_hair;
     $weight = $_weight;
     $ethnicity = $_ethnicity;
-    $last = $_last;
+    $lat = $_lat;
+    $lon = $_lon;
     
     global $con;
     $sql = "UPDATE user 
@@ -86,47 +116,6 @@ function editUser($_id, $_fName, $_lName, $_uName, $_password, $_role, $_phone, 
     // mysqli_close($con);
     unset($con);
     return $Message;
-
-}
-
-function addRole1($_userID, $_password){
-    $userID = $_userID;
-    $password =  $_password;
-    $role =  'Member';
-
-    global $con;
-    $sql = "INSERT INTO `role` (`Role_ID`, `Role_User_ID`, `Password`, `Role`)
-                VALUES (null, '$userID', '$password', '$role')";
-    
-    if ($con->query($sql) === TRUE) {
-        echo "New role record created successfully <br>";
-    } else {
-        echo "addRole() Error: " . $sql . "<br>" . $con->error;
-    }
-    
-    // mysqli_close($con);
-    unset($con);
-}
-
-function addRole($_userID, $_password){
-    
-    $userID = $_userID;
-    $password = $_password;
-    $role = 'Member';
- 
-
-    global $con;
-    $sql = "INSERT INTO `role` (`Role_ID`, `Role_User_ID`, `Password`, `Role`)
-    VALUES (null, `$userID`, `$password`, `$role`)";
-    
-    if ($con->query($sql) === TRUE) {
-        echo "New role record created successfully <br>";
-    } else {
-        echo "Error: " . $sql . "<br>" . $con->error;
-    }
-    
-    // mysqli_close($con);
-    unset($con);
 
 }
 
@@ -157,7 +146,8 @@ function addUserToSession($_uName, $_password){
     $_SESSION['hair'] = $row['Hair_Color'];
     $_SESSION['weight'] = $row['Weight'];
     $_SESSION['ethnicity'] = $row['Ethnicity'];
-    $_SESSION['lastLocation'] = $row['Last_Location'];
+    $_SESSION['lat'] = $row['Lat'];
+    $_SESSION['lon'] = $row['Lon'];
 //     $_SESSION['ThisSesssion']['Data'];
 // unset($_SESSION['ThisSession']);    
     }
@@ -168,17 +158,28 @@ function addUserToSession($_uName, $_password){
 //    echo"db closed =". mysqli_close($con);  
 unset($con);                  
 }
+function getUserByUsername($username)
+{
+    $query = "SELECT * 
+    FROM user
+    WHERE `Username` = '$username'";
+   return fillUser($query);
+}
 
-function getUserByID($_id){
-    $id = $_id; 
-    global $con;
+function getUserByID($id){
+    
     $query = "SELECT * 
                 FROM user
                 WHERE `User_ID` = $id";
-    
+    return fillUser($query);
+          
+}
+function fillUser($query)
+{
+    global $con;
     if ($result = mysqli_query($con, $query))
     {
-        
+       
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
     
     $userID = $row['User_ID'];
@@ -193,12 +194,14 @@ function getUserByID($_id){
     $hair = $row['Hair_Color'];
     $weight = $row['Weight'];
     $ethnicity = $row['Ethnicity'];
-    $last= $row['Last_Location'];
+    $lat = $row['Lat'];
+    $lon = $row['Lon'];
 
         $userArray = array(
-            $id,$fName,$lName,$uName,$phone,$email,$password
-            ,$role,$imageName,$hair,$weight,$ethnicity,$last
+            $userID,$fName,$lName,$uName,$phone,$email,$password
+            ,$role,$imageName,$hair,$weight,$ethnicity,$lat,$lon
         );
+   
     return $userArray;
     } 
     else 
@@ -206,9 +209,8 @@ function getUserByID($_id){
         echo "Error: " . $query . "<br>" . $con->error;
     }      
     // mysqli_close($con); 
-    unset($con);                 
+    unset($con);          
 }
-
 
 function validateUser($_uName, $_password){
     $uName = $_uName;
