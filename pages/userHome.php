@@ -15,7 +15,7 @@ if(isset($_POST['fname']))
   $fName = $_POST['fname'];
   $lName = $_POST['lname'];
   $uName = $_POST['uName'];
-  $password = $_POST['password'];
+  $password = password_hash($_POST['password'],PASSWORD_DEFAULT);
   $confPassword = $_POST['confirm'];
   $phone = $_POST['phone'];
   $email = $_POST['email'];
@@ -38,7 +38,7 @@ elseif(isset($_POST['logInuName']))
 {
   
   $uName = $_POST['logInuName'];
-  $password = $_POST['logInPassword'];
+  $password = password_hash($_POST['logInPassword'],PASSWORD_DEFAULT);
   validateUser($uName,$password);
   addUserToSession($uName, $password);
   $userID = $_SESSION['userID'];
@@ -53,6 +53,7 @@ if(isset($_GET['Message']))
 {
   $message = $_GET['Message'];
   echo "<script type='text/javascript'>alert('$message');</script>";
+  $userID = $_SESSION['userID'];
 }
 
 
@@ -162,22 +163,23 @@ if(isset($_GET['Message']))
 <style>
   .btn-userhome{
     /* select{ */
-    height:35px;
+    height:37px;
     border:1px solid #BDBDBD;
     margin-top:20px;
-    font-size:1.5em;
-    font-family: 'FontAwesome';
-    color:#66686b;
+    font-size:13px;
+    /* font-family: 'FontAwesome'; */
+    color:black;
     border-radius:20px;
     background-color: rgba(255,255,255,0);  
     border-color:#fff;
+    text-transform: none;
     }
-    .btn-drop-userhome{
+    /* .btn-drop-userhome{
     background-color: rgba(255, 255, 255, 0.534);;  
     border-color:#fff;'='
-    /* color:rgb(73, 72, 72); */
+    color:rgb(73, 72, 72);
     color:black;
-    }
+    } */
     /* .btn-drop-userhome:hover{
     background-color:black;  
     border-color:#fff;
@@ -237,11 +239,11 @@ if(isset($_GET['Message']))
    
 
     
-    <div class="container h-1300">
+    <div class="container h-1300" style="height:660px;">
       <div class="row h-100">
         <div class="col-md-8 mx-auto">
           <div class="col-md-10 mx-auto">
-          <div style="height:80px;"> 
+          <div style="height:90px;"> 
                     <!-- spacer -->
           </div>
           <div class="container h-100">
@@ -252,15 +254,11 @@ if(isset($_GET['Message']))
                     <div class=" row  ">
                       <div class=" mx-auto">
                         <div id="select_box" class="dropdown">
-                          <select onchange="populateMembers(this.value);" class="btn-userhome"  >
+                          <select onchange="populateMembers(this.value);" class="btn-userhome btn btn-outline"  >
                             <option  class="btn-drop-userhome">Group</option>
                               <?php
-                              $host = 'localhost';
-                              $user = 'root';
-                              $pass = '';
-                              mysql_connect($host, $user, $pass);
-                              mysql_select_db('group_scope');
-
+                             
+                              $con2;
                               $group=mysql_query("SELECT `Group_Name` 
                                                     FROM `group`
                                                       LEFT JOIN `groupuser`
@@ -282,7 +280,7 @@ if(isset($_GET['Message']))
                         &emsp;
                         <div class=" btn-group-sm mx-auto">
                           <div class=" dropdown" >
-                            <select onchange="getUserLocation(this.value);" class="btn-userhome" id="member_select">
+                            <select onchange="getUserLocation(this.value);" class="btn-userhome btn btn-outline" id="member_select">
                               <option  class="btn-drop-userhome">Member</option>
                             </select>
                         </div>
@@ -290,7 +288,7 @@ if(isset($_GET['Message']))
                     </div> 
                 <!-- end button group -->
 
-                  <div style="height:20px;">
+                  <div style="height:30px;">
                     <!-- spacer -->
                   </div>
                   <!-- start map -->
@@ -303,14 +301,9 @@ if(isset($_GET['Message']))
                     <!-- spacer -->
                   </div>
                   <div >
-                    <h4 class="text-center">Location info</h4>
-                  
-                   
-                    <!-- <p>Click the button to get your coordinates.</p>
+                 
 
-                    <button onclick="getLocation()">Try It</button> -->
-
-                    <p id="demo"></p>
+                    <p id="demo" class="text-center"></p>
                     <script>
                       
                     var x = document.getElementById("demo");
@@ -323,25 +316,22 @@ if(isset($_GET['Message']))
                     }
 
                     function showPosition(position) {
-                        // x.innerHTML = "Latitude: " + position.coords.latitude + 
-                        // "<br>Longitude: " + position.coords.longitude;
+                        x.innerHTML = "Your Location has been updated";
                         $.get("/GroupScope/utils/updateUserLocation.php",{lat : position.coords.latitude, lon : position.coords.longitude})
                     }
                     </script>
                     
                   </div>
-                  <div style="height:25px;">
-                    <!-- spacer -->
-                  </div>
+                  
                   <div class="mx-auto text-center ">
-                    <a href="../utils/requestLocation.php"  class="btn btn-outline justify-content-center btn-xl js-scroll-trigger">Request Location</a>
+                    <!-- <a href="../utils/requestLocation.php"  class="btn btn-outline justify-content-center btn-xl js-scroll-trigger">Request Location</a> -->
                     <div style="height:10px;">
                       <!-- spacer -->
                     </div>  
                     <a onclick="getLocation()" class="btn btn-outline btn-xl js-scroll-trigger">Send Location</a>
                     <!-- <a href="../utils/sendLocation.php" onclick="getLocation()" class="btn btn-outline btn-xl js-scroll-trigger">Send Location</a> -->
                   </div>
-                  <div style="height:25px;">
+                  <div style="height:10px;">
                     <!-- spacer -->
                   </div>
                   
@@ -388,31 +378,18 @@ if(isset($_GET['Message']))
     <script src="../js/new-age.min.js"></script>
     	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) **boostrap form** -->
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- map scripts -->
-    <!-- <script>
-      function initMap() {
-        var uluru = {lat: 44.9727845, lng: -93.2923275};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-    </script> -->
+
     <script>
     var map;
       function initMap(response) {
         var latLon = null ? response : {lat: 44.9727845, lng: -93.2923275};
-        var uluru = latLon;
+        // var uluru = latLon;
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
-          center: uluru
+          center: latLon
         });
         var marker = new google.maps.Marker({
-          position: uluru,
+          position: latLon,
           map: map
         });
       }

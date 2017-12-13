@@ -105,15 +105,7 @@
                       </div>
                     </div>
 
-                    <!-- <div class="form-group">
-                      <label for="password" class="cols-sm-2 control-label">Password</label>
-                      <div class="cols-sm-10">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                          <input type="password" class="form-control" name="logInPassword" id="password"  placeholder="Enter your Password" required autofocus/>
-                        </div>
-                      </div>
-                    </div> -->
+                    
 
                     <div class="form-group"> 
                       <div class=" col-sm-12">

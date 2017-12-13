@@ -251,34 +251,14 @@ $lon = $userArray[13];
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="form-group">
-                      <label for="password" class="cols-sm-2 control-label">Last Location</label>
-                      <div class="cols-sm-10">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                          <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" />
-                        </div>
-                      </div>
-                    </div> -->
-
-                    <!-- <div class="form-group">
-                      <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-                      <div class="cols-sm-10">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                          <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password" required autofocus/>
-                        </div>
-                      </div>
-                    </div> -->
+                   
                     <div class="form-group"> 
                     <div class="col-sm-offset-2 col-sm-10">
                       <!-- <button type="submit" class="btn btn-default">Sign Up</button> -->
                       <button type="submit" action="../utils/adminEditUserUtil.php?id=<?php echo $id;?>" class="btn btn-primary btn-lg btn-block login-button">Edit Profile</button>
                     </div>
                   </div>
-                  <!-- <div class="form-group"> 
-                    
-                  </div> -->
+               
                   </form> 
                 </div>
               </div>

@@ -27,7 +27,7 @@ function addUser($_fName, $_lName, $_uName, $_password, $_phone, $_email ){
             if ($con->query($sql) === TRUE) 
             {
                 $Message = "New user record created successfully \n";
-                return $Mesage;
+                return $Message;
             } else 
             {
                 $Message = "Error: " . $sql . "\n" . $con->error;
@@ -62,10 +62,8 @@ function addUser($_fName, $_lName, $_uName, $_password, $_phone, $_email ){
 function deleteUser($_id){
     global $con;
     $id = $_id;
-    // $id = $_GET['id'];
-    // $query = mysqli_query($con,"SELECT * FROM user WHERE User_ID = '$id'");
-    // $imageFile = mysqli_fetch_assoc($query);
-    // unlink("img/main/" .$imageFile['name']);
+  
+    mysqli_query($con,"DELETE FROM groupuser WHERE GroupUser_User_ID = '$id'");
     mysqli_query($con,"DELETE FROM user WHERE User_ID = '$id'");
     // mysqli_close($con);
     unset($con);
@@ -82,6 +80,7 @@ function editUser($_id, $_fName, $_lName, $_uName, $_password, $_role, $_phone, 
     $lName = $_lName;
     $uName = $_uName;
     $password = $_password;
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $role = $_role;
     $phone = $_phone;
     $email = $_email;
@@ -94,7 +93,7 @@ function editUser($_id, $_fName, $_lName, $_uName, $_password, $_role, $_phone, 
     
     global $con;
     $sql = "UPDATE user 
-            SET User_ID = '$id', First_Name = '$fName', Last_Name = '$lName', User_Phone_Num = '$phone', Email = '$email', Username = '$uName', `Password` = '$password', `Role` = '$role', Image_Name = '$image', Hair_Color = '$hair', `Weight` = '$weight', Ethnicity = '$ethnicity', Last_Location = '$last'
+            SET User_ID = '$id', First_Name = '$fName', Last_Name = '$lName', User_Phone_Num = '$phone', Email = '$email', Username = '$uName', `Password` = '$hashed_password', `Role` = '$role', Image_Name = '$image', Hair_Color = '$hair', `Weight` = '$weight', Ethnicity = '$ethnicity', Lat = $lat, Lon = $lon
             WHERE User_ID = '$id'";
     
     if ($con->query($sql) === TRUE) {
@@ -127,8 +126,8 @@ function addUserToSession($_uName, $_password){
     global $con;
     $query = "SELECT * 
                 FROM user
-                WHERE Username = '$uName'
-                AND Password = '$password'";
+                WHERE Username = '$uName'";
+                
     // if ($result = $con->query($query) === TRUE) 
     if ($result = mysqli_query($con, $query))
     {
@@ -213,31 +212,43 @@ function fillUser($query)
 }
 
 function validateUser($_uName, $_password){
-    $uName = $_uName;
     $password = $_password;
-    global $con;
-    $query = "SELECT * 
-                FROM user
-                WHERE `Username` = '$uName'
-                AND `Password` = '$password'";
-    
-    if ($result = mysqli_query($con, $query))
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT)
+;
+    if(password_verify($password, $hashed_password))
     {
-        if( mysqli_num_rows($result) != 0)
+        $uName = $_uName;
+        // $password = password_verify($_password, $hashed_password);
+        global $con;
+        $query = "SELECT * 
+                    FROM user
+                    WHERE `Username` = '$uName'";
+                    
+        
+        if ($result = mysqli_query($con, $query))
         {
-            // exit('you have seccefully signed in!');
+            if( mysqli_num_rows($result) != 0)
+            {
+                // exit('you have seccefully signed in!');
+            }
+            else
+            {	
+                $Message = "Invalid username! Try again! ";
+                header('Location: ./signIn.php?Message='.$Message);
+            }
         }
-        else
-        {	
-            $Message = "Invalid username or password! ";
-            header('Location: ./signIn.php?Message='.$Message);
+        
+        else 
+        {
+        echo "Error: " . $query . "<br>" . $con->error;
         }
+    }
+    else
+    {
+        $Message = "Invalid  password! Try again!";
+        header('Location: ./signIn.php?Message='.$Message);
     }
     
-    else 
-    {
-    echo "Error: " . $query . "<br>" . $con->error;
-    }
     // mysqli_close($con);
     unset($con);
 }

@@ -58,12 +58,6 @@ if(isset($_GET['Message']))
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <!-- <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="SingIn.php">Sign In</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="SingUp.php">Sign Up</a>
-            </li> -->
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="../index.html#features">Features</a>
             </li>
@@ -73,6 +67,14 @@ if(isset($_GET['Message']))
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="../index.html#contact">Contact Us</a>
             </li>
+            <li>
+                <div style="height:10px;">
+                    <!-- spacer -->
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="signUp.php">Sign Up</a>
+              </li>
           </ul>
         </div>
       </div>
@@ -81,11 +83,11 @@ if(isset($_GET['Message']))
     <!-- <header class="masthead"> -->
 
     
-    <div class="container h-1500"style="height:600px">
+    <div class="container h-1500"style="height:660px">
       <div class="row h-100">
         <div class="col-sm-8 mx-auto">
           <div class="col-md-10 mx-auto">
-          <div style="height:100px;">
+          <div style="height:150px;">
                     <!-- spacer -->
           </div>
           <div class="container">
@@ -120,7 +122,7 @@ if(isset($_GET['Message']))
                       <div class="cols-sm-10">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                          <input type="password" class="form-control" name="logInPassword" id="password"  placeholder="Enter your Password" required autofocus/>
+                          <input type="password" class="form-control" name="logInPassword" id="password"  placeholder="Enter your Password" autocomplete="current-password" required autofocus/>
                         </div>
                       </div>
                     </div>

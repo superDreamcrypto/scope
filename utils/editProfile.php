@@ -17,9 +17,10 @@ $imageName = $_POST['file'];
 $hair = $_POST['hair'];
 $weight = $_POST['weight'];
 $ethnicity = $_POST['ethnicity'];
-$last = $_SESSION['lastLocation'];
+$lat = $_SESSION['lat'];
+$lon = $_SESSION['lon'];
 
-$Message = editUser($id, $fName, $lName, $uName, $password, $role, $phone, $email, $imageName, $hair, $weight, $ethnicity, $last);
+$Message = editUser($id, $fName, $lName, $uName, $password, $role, $phone, $email, $imageName, $hair, $weight, $ethnicity, $lat, $lon);
 // add new values to session array
 // $Message = "Your profile has been updated! ";
 header('Location: ../pages/userHome.php?Message='.$Message)
