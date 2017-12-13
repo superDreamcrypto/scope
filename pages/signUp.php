@@ -60,12 +60,6 @@ if(isset($_GET['Message']))
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <!-- <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="SingIn.php">Sign In</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="SingUp.php">Sign Up</a>
-            </li> -->
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="../index.html#features">Features</a>
             </li>
@@ -170,7 +164,7 @@ if(isset($_GET['Message']))
                       <div class="cols-sm-10">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                          <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" required autofocus/>
+                          <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"autocomplete="new-password" required autofocus/>
                         </div>
                       </div>
                     </div>
@@ -185,9 +179,7 @@ if(isset($_GET['Message']))
                       </div>
                     </div>
 
-                    <!-- <div class="form-group ">
-                      <a href="./userHome.php" target="_blank" type="submit" id="button" class="btn btn-primary btn-lg btn-block login-button">Sign Up</a>
-                    </div> -->
+
                     <div class="form-group"> 
                       <div class="col-sm-offset-2 col-sm-10">
                         <!-- <button type="submit" class="btn btn-default">Sign Up</button> -->

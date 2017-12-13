@@ -251,15 +251,8 @@ $message = $_GET['Message'];
                       $start = ($current_page-1)*$limit;
                   }
 
-                 
-                //   $query =$con->prepare("SELECT * FROM user LIMIT $start, $limit");
-                //   $query->execute();
-                  
-                      
-                //   while($row=$query->fetch())
 
                 $query = "SELECT * FROM `group` LIMIT $start, $limit";
-                // while ($result = mysqli_query($con, $query))
                 $result = mysqli_query($con, $query);
                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
                 {
@@ -364,14 +357,9 @@ $message = $_GET['Message'];
                   }
 
                  
-                //   $query =$con->prepare("SELECT * FROM user LIMIT $start, $limit");
-                //   $query->execute();
-                  
-                      
-                //   while($row=$query->fetch())
+               
 
                 $query = "SELECT * FROM device LIMIT $start, $limit";
-                // while ($result = mysqli_query($con, $query))
                 $result = mysqli_query($con, $query);
                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
                 {
@@ -408,8 +396,7 @@ $message = $_GET['Message'];
 
                <div class="col-md-8 col-md-offset-2 ">
                <?php
-            //    $data=$com->prepare('SELECT * FROM user');
-            //       $data->execute();
+     
             $query = "SELECT * FROM device";
             $data = mysqli_query($con, $query);
             $totalRcr = mysqli_num_rows($data);

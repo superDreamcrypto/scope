@@ -156,7 +156,7 @@ session_start();
                       <div class="cols-sm-10">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                          <input type="text" class="form-control" name="password" id="password"  value="<?php echo $_SESSION['password']; ?>" />
+                          <input type="password" class="form-control" name="password" id="password" autocomplete="new-password" placeholder="Password" value="<?php echo $_SESSION['password']; ?>" />
                         </div>
                       </div>
                     </div>

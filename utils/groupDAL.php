@@ -55,15 +55,12 @@ else
 
 
 
-function deleteGroup(){
+function deleteGroup($_id){
     global $con;
-    $id = 3;
-    // $id = $_GET['id'];
-    // $query = mysqli_query($con,"SELECT * FROM user WHERE User_ID = '$id'");
-    // $imageFile = mysqli_fetch_assoc($query);
-    // unlink("img/main/" .$imageFile['name']);
+    $id = $_id;
+    
+    mysqli_query($con,"DELETE FROM  `groupuser` WHERE GroupUser_Group_ID = '$id'");
     mysqli_query($con,"DELETE FROM  `group` WHERE Group_ID = '$id'");
-    // mysqli_close($con);
     unset($con);
     // header("location:suadminhome.php");
     echo "Your selection has been deleted";

@@ -26,17 +26,11 @@ function addDevice($_Device_User_ID, $_Device_Phone_Num, $_Device_Name){
 
 
 
-function deleteDevice(){
+function deleteDevice($_id){
     global $con;
-    $id = 1;
-    // $id = $_GET['id'];
-    // $query = mysqli_query($con,"SELECT * FROM user WHERE User_ID = '$id'");
-    // $imageFile = mysqli_fetch_assoc($query);
-    // unlink("img/main/" .$imageFile['name']);
+    $id = $_id;
     mysqli_query($con,"DELETE FROM device WHERE Device_ID = '$id'");
-    // mysqli_close($con);
     unset($con);
-    // header("location:suadminhome.php");
     echo "Your selection has been deleted";
 }
 

@@ -1,12 +1,9 @@
 <?php
+include '../utils/connection.php';
+
 if(isset($_GET['groupName']))
 {
- $host = 'localhost';
- $user = 'root';
- $pass = '';
- mysql_connect($host, $user, $pass);
- mysql_select_db('group_scope');
-
+    $con2;
  $group = $_GET['groupName'];
  
 
@@ -23,10 +20,6 @@ if(isset($_GET['groupName']))
 while($row=mysql_fetch_array($member))
 {
     echo "<option class='btn-drop-userhome'>".$row['Username']."</option>"; 
-    
-//    echo "<option value=\"".$row['username']"\".class='btn-drop-userhome'>".$row['Username']."</option>"; 
-
-//    echo "<option value=\"".$row['username']"\".class='btn-drop-userhome'>".$row['Username']."</option>"; 
 
 }
 exit;
